@@ -1,6 +1,6 @@
 
 const courses = [
-    { id: 1, title: "React.js for Beginners", instructor: "John Doe", price: 499, category: "Frontend", image: "/src/assets/courseImage/react.png",subscribtion:true },
+    { id: 1, title: "React.js for Beginners", instructor: "John Doe", price: 499, category: "Frontend",video:"video.mp4", image: "/src/assets/courseImage/react.png",subscribtion:true },
     { id: 2, title: "Advanced Node.js", instructor: "Jane Smith", price: 599, category: "Backend", image: "/src/assets/courseImage/node.png",subscribtion:false },
     { id: 3, title: "JavaScript Mastery", instructor: "Alice Johnson", price: 399, category: "Frontend",  image: "/src/assets/courseImage/js.png" },
     { id: 4, title: "Full-Stack Development", instructor: "Mark Brown", price: 799, category: "Fullstack",  image: "/src/assets/courseImage/web.png" },
