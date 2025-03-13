@@ -1,42 +1,53 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import subscribedCourses from '../Services/Subscription'; // Adjust the import based on your file structure
 
 const CourseCard = ({ course, user }) => {
   const navigate = useNavigate();
 
   const handleStartCourse = () => {
     if (user) {
-      // Find the user's subscription based on the latest user info
-      const userSubscription = subscribedCourses.find(subscription => subscription.email === user.email);
-      const isSubscribed = userSubscription ? userSubscription.subscribedCourseIds.includes(course.id) : false;
-       console.log(isSubscribed)
+      const userSubscription = subscribedCourses.find(
+        (subscription) => subscription.email === user.user.email
+      );
+      const isSubscribed = userSubscription
+        ? userSubscription.subscribedCourseIds.includes(course.id)
+        : false;
+
       if (isSubscribed) {
-        // If subscribed, navigate to course
         navigate(`/course/${course.id}`, { state: { course } });
       } else {
-        // If not subscribed, navigate to payment
         navigate(`/payment/${course.id}`, { state: { course } });
       }
     } else {
-      // If not logged in, redirect to sign-in page
       localStorage.setItem("redirectAfterLogin", `/course/${course.id}`);
       navigate("/signin");
     }
   };
 
   return (
-    <div className="border p-4 rounded-lg border-gray-300 shadow-lg bg-white hover:shadow-xl transition-transform transform hover:scale-105">
-      <img src={course.image} alt={course.title} className="w-full h-40 object-fill rounded-md" />
-      <h3 className="text-lg font-bold mt-2">{course.title}</h3>
-      <p className="text-gray-500">{course.instructor}</p>
-      <p className="text-green-600 font-semibold text-lg">₹{course.price}</p>
-      <button
-        className="mt-3 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
-        onClick={handleStartCourse}
-      >
-        Start Course
-      </button>
+    <div className="max-w-sm w-[90%]  rounded overflow-hidden  shadow-2xl transform transition duration-300 hover:scale-105">
+      <img
+        className="w-full h-48 object-fill "
+        src={course.image}
+        alt={course.title}
+      />
+      <div className="px-6 py-4">
+      <div className="overflow-hidden whitespace-nowrap">
+      <div className="inline-block animate-marquee">
+       {course.title}
+      </div>
+    </div>      
+      <p className="text-gray-700 text-base">{course.instructor}</p>
+        <p className="text-green-500 font-semibold text-lg">₹{course.price}</p>
+      </div>
+      <div className="px-6  pb-3">
+        <button
+          className="bg-blue-500 text-white font-bold py-2 px-4 mx-auto rounded-full hover:bg-blue-700 transition duration-300"
+          onClick={handleStartCourse}
+        >
+          Start Course
+        </button>
+      </div>
     </div>
   );
 };

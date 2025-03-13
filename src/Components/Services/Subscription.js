@@ -1,6 +1,6 @@
 const subscribedCourses = [
     {
-        email: "alice.smith@example.com",
+        email: "bharathvidhyasekar@stellarsolutions.org",
         subscribedCourseIds: [1, 3, 5] // Alice is subscribed to courses 1, 3, and 5
     },
     {

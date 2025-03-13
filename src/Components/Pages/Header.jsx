@@ -14,7 +14,7 @@ const Header = ({ user, setUser }) => {
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem("user"); // Optional: Clear local storage
-    navigate("/signin");
+    navigate("/");
   };
 
   // Toggle dropdown menu
@@ -50,12 +50,12 @@ const Header = ({ user, setUser }) => {
               onClick={toggleDropdown}
             >
               <img
-                src={avatar || "https://via.placeholder.com/150"} // ✅ Correct avatar access
+                src={"/src/assets/profile/profile.png" || "https://via.placeholder.com/150"} // ✅ Correct avatar access
                 alt="Profile"
                 className="w-12 h-12 rounded-full border border-white"
               />
-              <span className="font-semibold">{username}</span>
-              <h3 className="block">({role})</h3>
+              <span className="font-semibold">{username.charAt(0).toUpperCase() + username.slice(1)}</span>
+              <h3 className="block">({role.charAt(0).toUpperCase() + role.slice(1)})</h3>
             </button>
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white text-black z-50 shadow-lg rounded-lg">
@@ -73,7 +73,7 @@ const Header = ({ user, setUser }) => {
           </>
         ) : (
           <button
-            className="bg-blue-600 px-5 py-2 text-lg rounded-md text-white hover:bg-blue-700 transition"
+            className="bg-blue-600  px-5 py-2 text-lg rounded-md text-white hover:bg-blue-700 transition"
             onClick={() => navigate("/signin")}
           >
             Sign In

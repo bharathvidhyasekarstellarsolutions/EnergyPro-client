@@ -1,11 +1,18 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,Navigate } from "react-router-dom";
 import { Input, Button, Form, message } from "antd";
 import axios from "axios";
 
-const SignIn = ({ setUser }) => {
+const SignIn = ({user, setUser }) => {
   const navigate = useNavigate();
   const [studentForm] = Form.useForm();
+
+  const isAuthenticated = !!localStorage.getItem("token"); // Example check
+
+  if (user) {
+    return <Navigate to="/" replace />;
+  }
+
 
   const handleLogin = async (values) => {
     try {
@@ -30,7 +37,7 @@ const SignIn = ({ setUser }) => {
 
         // Navigate based on role
         if (user.role === "student") {
-          navigate("/student");
+          navigate("/");
         } else if (user.role === "instructor") {
           navigate("/instructor-dashboard");
         } else {
@@ -54,13 +61,13 @@ const SignIn = ({ setUser }) => {
           onFinish={handleLogin} 
           className="bg-white shadow-xl rounded-lg p-6"
         >
-          <Form.Item name="email" rules={[{ required: true, message: "Please enter your email!" }]}>
+          <Form.Item name="email" className="!px-2" rules={[{ required: true, message: "Please enter your email!" }]}>
             <Input type="email" placeholder="Email" />
           </Form.Item>
-          <Form.Item name="password" rules={[{ required: true, message: "Please enter your password!" }]}>
+          <Form.Item name="password" className="!px-2"  rules={[{ required: true, message: "Please enter your password!" }]}>
             <Input.Password placeholder="Password" />
           </Form.Item>
-          <Form.Item>
+          <Form.Item className="!px-2" >
             <Button type="primary" htmlType="submit" className="w-full">Sign In</Button>
           </Form.Item>
           <div className="text-center pb-3">

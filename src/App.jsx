@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Header from "./components/Pages/Header";
+import { BrowserRouter as Router, Routes, Route, Navigate ,useLocation } from "react-router-dom";
+// import Header from "./components/Pages/Header";
 import Home from "./Components/Pages/Home";
 import CoursePlay from "./Components/Pages/CoursePlay";
 import SignIn from "./Components/AuthPage/Signin";
@@ -14,6 +14,10 @@ import MyLearning from "./Components/Course/MyLearning";
 import SignUp from "./Components/AuthPage/SignUp";
 import VerifyOtp from "./Components/AuthPage/VerifyOtp";
 import Password from "./Components/AuthPage/Password";
+import Navbar from "./Components/Pages/newHeader";
+import NewFooter from "./Components/Pages/newFooter";
+import About from "./Components/Pages/About";
+import  Contact  from "./Components/Pages/Contact";
 
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx'); // Replace with your actual public key
 
@@ -24,13 +28,18 @@ function App() {
   });
 
 
+
+
   return (
     <Router>
-      <Header user={user} setUser={setUser} />
+      {/* <Header user={user} setUser={setUser} />
+       */}
+       <Navbar user={user}></Navbar>
       <Routes>
         {/* authpage start */}
-        <Route path="/student" element={<Home user={user} />} />
-        <Route path="/signin" element={<SignIn setUser={setUser} />} />
+        {/* <Route exact path="/" render={() => <Redirect to="/student" />} /> */}
+        <Route  path="/" element={<Home user={user}/> }/>
+        <Route path="/signin" element={<SignIn setUser={setUser} user={user} />} />
         <Route path="/signup" element={<SignUp></SignUp>}/>
         <Route path="/verify-otp" element={<VerifyOtp ></VerifyOtp>}/>
         <Route path="/create-password" element={<Password />}/>
@@ -41,7 +50,9 @@ function App() {
 
         {/* authpage end */}
 
-
+   
+        <Route  path="/about" element={<About></About> }/>
+        <Route path="/contact" element={<Contact></Contact> }/>
 
         <Route path="/course/:id" element={user ? <CoursePlay user={user} /> : <Navigate to="/signin" />} />
         <Route path="/profile" element={user ? <Profile user={user} setUser={setUser} /> : <Navigate to="/signin" />} />
@@ -51,7 +62,8 @@ function App() {
         />        <Route path="/payment/:id" element={user ? <Elements stripe={stripePromise}><CheckoutForm /></Elements> : <Navigate to="/signin" />} />
         <Route path="/my-learning" element={user ? <MyLearning user={user} /> : <Navigate to="/signin" />} />
       </Routes>
-      <Footer />
+      <NewFooter></NewFooter>
+      {/* <Footer /> */}
     </Router>
   );
 }

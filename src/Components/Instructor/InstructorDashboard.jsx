@@ -31,25 +31,22 @@ const InstructorDashboard = () => {
     }
 
 
-  
-    const formData = new FormData();
-    formData.append("title", values.title);
-    formData.append("description", values.description);
-    formData.append("price", values.price);
-    formData.append("category", values.category);
-    formData.append("videoFile", video.originFileObj);  // ✅ Correct file format
-    formData.append("imageFile", image.originFileObj);  // ✅ Correct file format
-    formData.append("email", email);
-    formData.append("author", username);
-    formData.append("token", accessToken);
+    const formData = {
+      title: values.title,
+      description: values.description,
+      price: values.price,
+      category: values.category,
+      videoFile: video.originFileObj,  // File object remains intact
+      imageFile: image.originFileObj,  // File object remains intact
+      email: email,
+      author: username,
+      token: accessToken
+  };
 
-    console.log(accessToken)
-   
 
-    for (let [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
-  
+
+  console.log(formData)
+
     try {
       const response = await axios.post(
         "http://localhost:3000/v1/api/courses/create",

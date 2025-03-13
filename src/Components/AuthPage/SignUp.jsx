@@ -40,7 +40,7 @@ const SignUp = ({ userAuth, setUserAuth }) => {
           <TabPane tab="Student" key="1">
             <h2 className="text-xl font-bold mb-4 text-center">Student Register</h2>
             <Form onFinish={() => handleRegistration("student", studentEmail, studentName)} className="bg-white shadow-xl rounded-lg p-6">
-              <Form.Item name="username" rules={[{ required: true, message: 'Please input your Username!' }]}>
+              <Form.Item name="username" className="!px-2" rules={[{ required: true, message: 'Please input your Username!' }]}>
                 <Input
                   type="text"
                   placeholder="Username"
@@ -49,7 +49,7 @@ const SignUp = ({ userAuth, setUserAuth }) => {
                   onChange={(e) => setStudentName(e.target.value)}
                 />
               </Form.Item>
-              <Form.Item name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
+              <Form.Item name="email"  className="!px-2" rules={[{ required: true, message: 'Please input your email!' }]}>
                 <Input
                   type="email"
                   placeholder="Email"
@@ -67,8 +67,8 @@ const SignUp = ({ userAuth, setUserAuth }) => {
                   onChange={(e) => setStudentPassword(e.target.value)}
                 />
               </Form.Item> */}
-              <Form.Item>
-                <Button type="primary" htmlType="submit" className="w-full">
+              <Form.Item className="!px-2">
+                <Button type="primary"  htmlType="submit" className="w-full">
                   Register
                 </Button>
               </Form.Item>
@@ -78,7 +78,7 @@ const SignUp = ({ userAuth, setUserAuth }) => {
           <TabPane tab="Instructor" key="2">
             <h2 className="text-xl font-bold mb-4 text-center">Instructor Register</h2>
             <Form onFinish={() => handleRegistration("instructor", instructorEmail, instructorName)} className="bg-white shadow-xl rounded-lg p-6">
-              <Form.Item name="username" rules={[{ required: true, message: 'Please input your Username!' }]}>
+              <Form.Item name="username" className="!px-2" rules={[{ required: true, message: 'Please input your Username!' }]}>
                 <Input
                   type="text"
                   placeholder="Username"
@@ -87,7 +87,7 @@ const SignUp = ({ userAuth, setUserAuth }) => {
                   onChange={(e) => setInstructorName(e.target.value)}
                 />
               </Form.Item>
-              <Form.Item name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
+              <Form.Item className="!px-2" name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
                 <Input
                   type="email"
                   placeholder="Email"
@@ -105,8 +105,8 @@ const SignUp = ({ userAuth, setUserAuth }) => {
                   onChange={(e) => setInstructorPassword(e.target.value)}
                 />
               </Form.Item> */}
-              <Form.Item>
-                <Button type="primary" htmlType="submit" className="w-full">
+              <Form.Item className="!px-2">
+                <Button  type="primary" htmlType="submit" className="w-full">
                   Register
                 </Button>
               </Form.Item>

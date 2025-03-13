@@ -5,10 +5,10 @@ import subscribedCourses from "../Services/Subscription"; // Adjust the import b
 
 const MyLearning = ({ user }) => {
   const navigate = useNavigate();
-console.log(user)
+console.log(user.user)
   // Find the user's subscriptions
   const userSubscriptions = subscribedCourses.find(
-    (subscription) => subscription.email === user.email
+    (subscription) => subscription.email === user.user.email
   );
 
   // If user has subscriptions, get the course details
@@ -22,7 +22,7 @@ console.log(user)
   );
 
   return (
-    <div className="p-10">
+    <div className="p-10 h-screen">
       <h2 className="text-2xl font-bold mb-6">My Learning</h2>
       {subscribedCoursesDetails.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
