@@ -44,7 +44,7 @@ const Contact = () => {
         </div>
     </div>
 
-    <div class="flex flex-col justify-center w-full bg-white shadow-2xl p-8 pt-0 lg:w-1/2 lg:px-12 xl:px-24 pt-5">
+    <div class="flex flex-col justify-center w-full bg-white shadow-2xl p-8 lg:w-1/2 lg:px-12 xl:px-24 pt-5">
         <form>
             <div class="-mx-2 md:items-center md:flex">
                 <div class="flex-1 px-2">
