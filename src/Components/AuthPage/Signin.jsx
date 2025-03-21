@@ -23,8 +23,8 @@ const SignIn = ({user, setUser }) => {
       });
 
       if (response.status === 200) {
-        const { accessToken, user } = response.data;
-        const userData = { accessToken, user };
+        const { accessToken,refreshToken, user } = response.data;
+        const userData = { accessToken, refreshToken,user };
 
         // Wait for state update before navigating
         await new Promise((resolve) => {
