@@ -7,8 +7,6 @@ const SignIn = ({user, setUser }) => {
   const navigate = useNavigate();
   const [studentForm] = Form.useForm();
 
-  const isAuthenticated = !!localStorage.getItem("token"); // Example check
-
   if (user) {
     return <Navigate to="/" replace />;
   }
@@ -23,9 +21,10 @@ const SignIn = ({user, setUser }) => {
       });
 
       if (response.status === 200) {
-        const { accessToken, user } = response.data;
-        const userData = { accessToken, user };
-
+        const { accessToken,refreshToken, user } = response.data;
+        const userData = { accessToken, refreshToken,user };
+          console.log(userData);
+          
         // Wait for state update before navigating
         await new Promise((resolve) => {
           setUser(userData);

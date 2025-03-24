@@ -2,75 +2,76 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
 import Certificate from "../Course/Certificate";
-import video from '../video/vi.mp4'
 
-const CoursePlay = ({ user }) => {
-  const [watched , setWatched] = useState(false);
+const CoursePlay = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState(user || JSON.parse(localStorage.getItem("user")));
+  const [watched, setWatched] = useState(false);
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem("user")));
 
-  // Redirect if no user exists (not signed in)
+  // Redirect if user is not logged in
   useEffect(() => {
-    if (!currentUser) {
-      navigate("/signin");
-    }
-  }, [currentUser, navigate]);
+    if (!user) navigate("/signin");
+    if (!state?.course) navigate("/");
+    const videoUrl= course?.videoFile
+    console.log(videoUrl);
+  }, [state, user, navigate]);
 
-  // Redirect to home if no course data exists
-  useEffect(() => {
-    if (!state?.course) {
-      navigate("/");
-    }
-  }, [state, navigate]);
-
-  // Prevent rendering if user or course is missing
-  if (!currentUser || !state?.course) return null;
+  // Prevent rendering if data is missing
+  if (!user || !state?.course) return null;
 
   const { course } = state;
-
-
+  const videoUrl= course?.videoFile
+  console.log(videoUrl);
+  fetch(videoUrl)
+  .then((res) => console.log("Fetch Response:", res))
+  .catch((err) => console.error("Fetch Error:", err));
+  
 
   const handleProgress = (progress) => {
-    // Check if video is 95% completed (to avoid missing small gaps)
-    if (progress.played >= 0.95) {
-      setWatched(true);
-    }
+    if (progress.played >= 0.99) setWatched(true);
   };
 
-  const handleEnd = () => {
-    setWatched(true); // Ensure it's marked watched when it ends
-  };
+  const handleEnd = () => setWatched(true);
+
   return (
     <div className="p-6 flex flex-col lg:flex-row gap-6">
-      {/* Left: Video Player */}
+      {/* Video Player Section */}
       <div className="flex-1">
         <h1 className="text-3xl font-bold mb-4">{course.title}</h1>
         <div className="w-full max-w-4xl">
-          <ReactPlayer
-            url={course.videoUrl || video}
-            controls
-            width="100%"
-            height="480px"
-            className="rounded-lg shadow-lg"
-            onProgress={handleProgress}
-            onEnded={handleEnd}
-            onContextMenu={(e) => e.preventDefault()} // Disable right-click
-      config={{
-        file: {
-          attributes: {
-            controlsList: 'nodownload', // Prevent download option
-          },
-        },
-      }}
-          />
-       {watched ? (<Certificate name={user}></Certificate>) : (<h1 className="font-medium">Complete the course for certificate</h1>)}
+        {videoUrl ? (
+            <ReactPlayer
+              url={videoUrl}
+              playing
+              controls
+              width="100%"
+              height="480px"
+              config={{
+                file: {
+                  attributes: {
+                    crossOrigin: "anonymous", // ✅ Allow CORS
+                    playsInline: true, // ✅ iOS Support
+                  },
+                },
+              }}
+              onProgress={handleProgress}
+              onEnded={() => setWatched(true)}
+            />
+          ) : (
+            <p className="text-red-500">Video URL is missing or invalid.</p>
+          )}
 
+  
+          {watched ? (
+            <Certificate name={user?.user?.username} />
+          ) : (
+            <h1 className="font-medium">Complete the course for a certificate</h1>
+          )}
         </div>
-        
       </div>
 
-      {/* Right: Downloadable Resource */}
+      {/* Downloadable Resources Section */}
       <div className="w-full lg:w-1/4 bg-gray-100 p-4 rounded-lg shadow-lg">
         <h2 className="text-xl font-semibold mb-4">Resources</h2>
         {course.resourceUrl ? (
@@ -84,9 +85,6 @@ const CoursePlay = ({ user }) => {
         ) : (
           <p className="text-gray-500">No downloadable resources available.</p>
         )}
-      
-        
-      
       </div>
     </div>
   );
