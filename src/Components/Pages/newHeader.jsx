@@ -35,7 +35,7 @@ const Navbar = ({ user, setUser }) => {
           to={role === "instructor" ? "/instructor-dashboard" : "/"}
           className="text-xl font-bold"
         >
-          <h2>EnergyPro</h2>
+          <h2>EnergyProInstitute</h2>
         </Link>
 
         {/* Mobile Menu Button */}
@@ -74,6 +74,17 @@ const Navbar = ({ user, setUser }) => {
                 }
               >
                 About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/explore-courses"
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) =>
+                  isActive ? "text-blue-600" : "hover:text-blue-600"
+                }
+              >
+                Courses
               </NavLink>
             </li>
             <li>

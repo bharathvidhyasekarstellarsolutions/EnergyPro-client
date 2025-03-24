@@ -63,7 +63,7 @@ console.log("isSubscribed:", isSubscribed);
   };
 
   return (
-    <div className="max-w-sm w-[90%] rounded overflow-hidden shadow-2xl transform transition duration-300 hover:scale-105">
+    <div className="max-w-sm w-[90%] mx-auto rounded overflow-hidden shadow-2xl transform transition duration-300 hover:scale-105">
       <img
         className="w-full h-48 object-cover"
         src={course.imageFile || "https://via.placeholder.com/150"} // Fallback image

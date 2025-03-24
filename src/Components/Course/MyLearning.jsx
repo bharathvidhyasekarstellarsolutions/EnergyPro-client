@@ -1,21 +1,24 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const MyLearning = ({ user }) => {
+const MyLearning = () => {
   const navigate = useNavigate();
   const [subscribedCourses, setSubscribedCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [token, setToken] = useState("");
+  const [userId, setUserId] = useState("");
 
+  // ✅ Load user data from localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
 
     if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
-        const accessToken = parsedUser?.accessToken;
-        setToken(accessToken);
+        setToken(parsedUser?.accessToken || "");
+        setUserId(parsedUser?.user?.id || "");
       } catch (error) {
         console.error("Error parsing stored user data:", error);
       }
@@ -24,19 +27,16 @@ const MyLearning = ({ user }) => {
     }
   }, []);
 
-  useEffect(() => {
-    const fetchSubscribedCourses = async () => {
-      if (!user?.user?.id) {
-        setError("User not found");
-        setLoading(false);
-        return;
-      }
 
-      try {
-        const response = await fetch(
-          `http://localhost:3000/v1/api/subscription/get-course/${user.user.id}`,
+  // ✅ Fetch subscribed courses once `userId` & `token` are set
+  useEffect(() => {
+    if (!userId || !token) return; // 🛑 Wait until both are available
+
+    const fetchSubscribedCourses = async () => {
+   try {
+        const response = await axios.get(
+          `http://localhost:3000/v1/api/subscription/get-course/${userId}`,
           {
-            method: "GET",
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
@@ -44,21 +44,19 @@ const MyLearning = ({ user }) => {
           }
         );
 
-
-        const data = await response.json();
-        setSubscribedCourses(data.myCourses || []);
+        setSubscribedCourses(response.data.myCourses || []);
       } catch (err) {
+        console.error("❌ API Error:", err);
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
 
-    if (token) {
-      fetchSubscribedCourses();
-    }
-  }, [token, user]);
+    fetchSubscribedCourses();
+  }, [userId, token]); // ✅ Now waits for both `userId` & `token`
 
+  // 🔹 Capitalize Helper Function
   const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
   return (

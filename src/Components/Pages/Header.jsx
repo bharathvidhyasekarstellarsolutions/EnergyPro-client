@@ -1,19 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Header = ({ user, setUser }) => {
+const Header = () => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   
 
+    const storedUser = localStorage.getItem("user");
+    const { username, role, email, avatar } = storedUser?.user || {};
+
+  
   // ✅ Correctly destructure user data (avoiding undefined errors)
-  const { username, role, email, avatar } = user?.user || {};
+
 
 
   // Logout function
   const handleLogout = () => {
-    setUser(null);
     localStorage.removeItem("user"); // Optional: Clear local storage
     navigate("/");
   };
@@ -38,7 +41,7 @@ const Header = ({ user, setUser }) => {
   return (
     <nav className="bg-gray-800 text-white p-4 flex justify-between items-center shadow-md">
       <h1 className="text-2xl font-bold">
-        <Link to="/signin">EnergyPro</Link>
+        <Link to="/signin">EnergyProInstitute</Link>
       </h1>
       <div className="relative flex items-center" ref={dropdownRef}>
       {user ? (

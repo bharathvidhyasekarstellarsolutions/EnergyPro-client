@@ -23,9 +23,9 @@ import InstructorList from "./Components/AdminControl/instructorControl/instruct
 import InstructorRegister from "./Components/AdminControl/instructorControl/instructorRegister";
 import StudentList from "./Components/AdminControl/studentControl/studentList";
 import StudentRegister from "./Components/AdminControl/studentControl/studentRegister";
-import { AuthProvider } from "./authProvider";
 import InstructorCourse from "./Components/Instructor/instructorCourse";
 import InstructorPlayer from "./Components/Instructor/instructorPlayer";
+import ExploreCourses from "./Components/Pages/exploreCourses";
 const stripePromise = loadStripe(""); // Replace with your actual public key
 
 function App() {
@@ -41,12 +41,6 @@ function App() {
 
   const userRole = user?.user?.role;
 
-  const logoutUser = () => {
-    localStorage.removeItem("user");
-    setUser(null);
-    window.location.href = "/";
-  };
-
   const location = useLocation();
   const hideHeaderFooter = location.pathname.includes("/admin");
 
@@ -61,7 +55,6 @@ function App() {
     <>
       {/* Show Navbar unless it's an admin page */}
       {!hideHeaderFooter && <Navbar user={user} setUser={setUser} />}
-<AuthProvider user={user} setUser={setUser}>
       <Routes>
         {/* Authentication Pages */}
         <Route
@@ -73,16 +66,17 @@ function App() {
         <Route path="/create-password" element={<Password />} />
 
         {/* Student & Public Routes */}
-        <Route path="/" element={user ? (user.user.role === "student" ? <Home user={user} /> : <Navigate to="/instructor-dashboard" />) 
-        : (<Home user={user} />  )}/>
+        <Route path="/" element={user ? (user.user.role === "student" ? <Home  /> : <Navigate to="/instructor-dashboard" />) 
+        : (<Home />  )}/>
 
+      <Route path="/explore-courses" element={<ExploreCourses />} />
 
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/coursePlay" element={user ? <CoursePlay user={user} /> : <Navigate to="/signin" />} />
         <Route path="/profile" element={user ? <Profile user={user} setUser={setUser} /> : <Navigate to="/signin" />} />
         <Route path="/payment/:id" element={user ? <Elements stripe={stripePromise}><CheckoutForm /></Elements> : <Navigate to="/signin" />} />
-        <Route path="/my-learning" element={user ? <MyLearning user={user} /> : <Navigate to="/signin" />} />
+        <Route path="/my-learning" element={user ? <MyLearning /> : <Navigate to="/signin" />} />
 
         {/* Instructor Dashboard - Only Accessible to Instructors */}
         {userRole === "instructor" && <Route path="/instructor-dashboard" element={<InstructorDashboard user={user} />} />}
@@ -92,7 +86,7 @@ function App() {
 
 
         {/* Admin Routes - Only Accessible to Admins */}
-        {userRole === "admin" && (
+        
           <>
             <Route path="/admin" element={<Dashboard />} />
             <Route path="/admin/instructor" element={<InstructorList />} />
@@ -100,13 +94,12 @@ function App() {
             <Route path="/admin/student" element={<StudentList />} />
             <Route path="/admin/student-register" element={<StudentRegister />} />
           </>
-        )}
+      
 
 
         {/* Redirect unknown routes based on user role */}
         <Route path="*" element={<Navigate to={userRole === "instructor" ? "/instructor-dashboard" : "/"} />} />
       </Routes>
-      </AuthProvider>
 
       {/* Show Footer unless it's an admin page */}
       {!hideHeaderFooter && <NewFooter />}
