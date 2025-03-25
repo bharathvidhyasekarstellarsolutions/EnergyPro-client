@@ -3,6 +3,7 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Button, Input, Space, Form, message } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 const Password = () => {
   const [form] = Form.useForm();
@@ -16,7 +17,7 @@ const Password = () => {
       message.error('Passwords do not match!');
       return;
     }
-    await axios.post('http://localhost:3000/v1/api/auth/create-password', 
+    await axios.post(`${SERVER_URL}/v1/api/auth/create-password`, 
       {email:state.email,
         password 
       
