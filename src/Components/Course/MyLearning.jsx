@@ -11,7 +11,8 @@ const MyLearning = () => {
   const [token, setToken] = useState("");
   const [userId, setUserId] = useState("");
 
-  // ✅ Load user data from localStorage
+  // ✅ Load user data from localStorage only once on mount
+  useEffect(() => {
     const storedUser = localStorage.getItem("user");
 
     if (storedUser) {
@@ -25,40 +26,41 @@ const MyLearning = () => {
     } else {
       console.error("No user found in localStorage");
     }
-  
-
+  }, []); // ✅ Runs only once when component mounts
 
   // ✅ Fetch subscribed courses once `userId` & `token` are set
   useEffect(() => {
     if (!userId || !token) return; // 🛑 Wait until both are available
 
     const fetchSubscribedCourses = async () => {
-   try {
+      setLoading(true);
+      try {
         const response = await axios.get(
           `${SERVER_URL}/v1/api/subscription/get-course/${userId}`,
           {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
-              "Ngrok-Skip-Browser-Warning": "true" 
+              "Ngrok-Skip-Browser-Warning": "true",
             },
           }
         );
-        if(!response.data.myCourses){
-          setError("no data found")
-        }
 
-        setSubscribedCourses(response.data.myCourses || []);
+        if (!response.data.myCourses || response.data.myCourses.length === 0) {
+          setError("No courses found");
+        } else {
+          setSubscribedCourses(response.data.myCourses);
+        }
       } catch (err) {
-        console.error("❌ API Error:", err.response.data);
-        setError(err.response.data.message);
+        console.error("❌ API Error:", err.response?.data || err.message);
+        setError(err.response?.data?.message || "Failed to fetch courses");
       } finally {
         setLoading(false);
       }
     };
 
     fetchSubscribedCourses();
-  }, [userId, token]); // ✅ Now waits for both `userId` & `token`
+  }, [userId, token]); // ✅ Waits for both `userId` & `token`
 
   // 🔹 Capitalize Helper Function
   const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
