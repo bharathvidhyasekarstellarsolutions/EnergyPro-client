@@ -16,8 +16,20 @@ const Password = () => {
       message.error('Passwords do not match!');
       return;
     }
-    await axios.post('http://localhost:3000/v1/api/auth/create-password', {email:state.email,
-        password }).then(response=>{
+    await axios.post('http://localhost:3000/v1/api/auth/create-password', 
+      {email:state.email,
+        password 
+      
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Ngrok-Skip-Browser-Warning": "true",  // ✅ Bypass Ngrok warning page
+        },
+      }
+    
+    
+    ).then(response=>{
             if (response.status===200){
                 message.success('Password successfully set!');
                 navigate('/signin')

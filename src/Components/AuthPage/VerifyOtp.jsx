@@ -61,11 +61,21 @@ const VerifyOtp = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post(`${SERVER_URL}/v1/api/auth/verify-otp`, {
-        email: state.email,
-        role: state.role,
-        otp: enteredOtp,
-      });
+      const response = await axios.post(`${SERVER_URL}/v1/api/auth/verify-otp`, 
+        {
+          email: state.email,
+          role: state.role,
+          otp: enteredOtp,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Ngrok-Skip-Browser-Warning": "true",
+          },
+        }
+      );
+      
+    
 
       if (response.status === 201) {
         message.success('OTP verified successfully!');
