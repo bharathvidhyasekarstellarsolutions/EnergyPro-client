@@ -20,7 +20,14 @@ const SignUp = ( ) => {
 
     try {
       console.log("Sending registration request:", user);
-      const response = await axios.post(`${SERVER_URL}/v1/api/auth/send-otp`, user);
+      const response = await axios.post(`${SERVER_URL}/v1/api/auth/send-otp`, user,{
+        headers: {
+          "Content-Type": "application/json",
+          "Ngrok-Skip-Browser-Warning": "true"  // ✅ Bypass Ngrok warning page
+        },
+      }
+
+      );
 
       console.log("API Response:", response);
 
