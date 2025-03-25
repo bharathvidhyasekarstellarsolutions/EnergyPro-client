@@ -12,7 +12,6 @@ const MyLearning = () => {
   const [userId, setUserId] = useState("");
 
   // ✅ Load user data from localStorage
-  useEffect(() => {
     const storedUser = localStorage.getItem("user");
 
     if (storedUser) {
@@ -26,7 +25,7 @@ const MyLearning = () => {
     } else {
       console.error("No user found in localStorage");
     }
-  }, []);
+  
 
 
   // ✅ Fetch subscribed courses once `userId` & `token` are set
