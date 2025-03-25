@@ -93,8 +93,8 @@ const Home = ({ user }) => {
       </Flex>}
             {/* ✅ Responsive Course Grid */}
             <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-                {filteredCourses.map((course) => (
-                    <CourseCard key={course.courseId} course={course} user={user} />
+                {filteredCourses.map((course,index) => (
+                    <CourseCard key={course.courseId} index={index} course={course} user={user} />
                 ))}
             </div>
         </div>
