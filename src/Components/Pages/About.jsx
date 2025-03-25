@@ -4,7 +4,9 @@ const About = () => {
   return (
     <div className="bg-gray-100 min-h-scree ">
       {/* Hero Section */}
-      <div className="relative top-0 md:h-[500px] h-[300px] p-4 flex items-center opacity- bg-[url('image/about/about5.jpg')]  justify-center text-white bg-cover  md:bg-cover bg-[-20px_30px]  md:bg-[0px_-10px] lg:bg-[0px_-140px] bg-no-repeat">
+      <div className="relative top-0 md:h-[500px] h-[300px] p-4 flex items-center opacity  justify-center text-white bg-cover  md:bg-cover bg-[-20px_30px]  md:bg-[0px_-10px] lg:bg-[0px_-140px] bg-no-repeat"
+      style={{backgroundImage:`url(image/about/about5.jpg)`}}
+      >
   
   {/* Background Overlay for better readability */}
   <div className="absolute inset-0"></div>

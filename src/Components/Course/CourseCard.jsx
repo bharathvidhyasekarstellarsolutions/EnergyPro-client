@@ -2,35 +2,45 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
-const CourseCard = ({ course, user }) => {
+const CourseCard = ({ course, index }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const user =  JSON.parse(localStorage.getItem("user"));   
+  const image =[
+    'courseImage/course1.jpg',
+    'courseImage/course2.jpg',
+    'courseImage/course3.jpg',
+    'courseImage/course4.jpg',
+    'courseImage/course5.jpg',
+  
+  ]
 
   const handleStartCourse = async () => {
-    if (!user) {
-      localStorage.setItem("redirectAfterLogin", `/course/${course.courseId}`);
-      navigate("/signin");
-      return;
-    }
-
+    
     setLoading(true);
     try {
+     console.log(user.accessToken);
+     
       const response = await fetch(
-        `${SERVER_URL}/v1/api/subscription/get-course/${user.user.id}`,
+        `${SERVER_URL}/v1/api/subscription/get-course/${user?.user.id}`,
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${user.accessToken}`,
+            "Ngrok-Skip-Browser-Warning": "true" 
           },
         }
       );
-
+    console.log((response));
+    
       if (!response.ok) {
         throw new Error("Failed to check subscription status");
       }
 
       const data = await response.json();
+    
+      
 
    // Ensure courses is an array, default to empty array if undefined or null
 // Ensure courses is parsed correctly
@@ -67,7 +77,7 @@ console.log("isSubscribed:", isSubscribed);
     <div className="max-w-sm w-[90%] mx-auto rounded overflow-hidden shadow-2xl transform transition duration-300 hover:scale-105">
       <img
         className="w-full h-48 object-cover"
-        src={course.imageFile || "https://via.placeholder.com/150"} // Fallback image
+        src={image[index]} // Fallback image
         alt={course.title}
         crossOrigin="anonymous"
       />
