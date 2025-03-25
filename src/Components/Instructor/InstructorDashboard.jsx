@@ -3,6 +3,7 @@ import { Modal, Form, Input, Button, Upload, Select, message } from "antd";
 import { PlusOutlined, UploadOutlined, UserOutlined ,EditOutlined} from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import axios from "axios";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 const { Option } = Select;
 
@@ -67,7 +68,7 @@ export default function InstructorDashboard ({user}) {
   
     try {
       const response = await axios.post(
-        "http://localhost:3000/v1/api/courses/create",
+        `${SERVER_URL}/v1/api/courses/create`,
         formData,
         {
           headers: {

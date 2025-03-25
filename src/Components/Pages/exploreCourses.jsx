@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Button, message, Steps, theme } from 'antd';
+import React from 'react';
+import { Collapse } from 'antd';
 import { ArrowRight } from 'lucide-react';
+import {RightCircleTwoTone} from "@ant-design/icons"
 
 const courses = [
   {
@@ -76,53 +77,30 @@ const courses = [
 ];
 
 const ExploreCourses = () => {
-  const { token } = theme.useToken();
-  const [current, setCurrent] = useState(0);
-  
-  const next = () => setCurrent(current + 1);
-  const prev = () => setCurrent(current - 1);
-  
-  const items = courses.map((course) => ({
-    key: course.title,
-    title: course.title,
+  const items = courses.map((course, index) => ({
+    key: index.toString(),
+    label: course.title,
+    children: (
+      <div className="text-gray-600">
+        {course.topics.map((topic, i) => (
+          <p key={i} className="flex items-center mt-2 gap-3">
+            <RightCircleTwoTone /> {topic}
+          </p>
+        ))}
+      </div>
+    ),
   }));
-  
+
   return (
-    <div className="p-6 bg-gray-100 min-h-screen flex flex-col">
+    <div className="py-14 bg-gray-100 grid lg:grid-cols-2 md:grid-cols-2 justify-evenly">
+    <div className='self-center'>
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Our Courses</h1>
       <p className="text-center text-gray-600 mb-6">
-        We offer comprehensive training programs designed to equip individuals with the knowledge and skills required to excel in energy and leadership fields. Our flagship courses include:
+        We offer comprehensive training programs designed to equip individuals with the knowledge and skills required to excel in energy and leadership fields.
       </p>
-      <div className="flex flex-grow justify-evenly">
-        <div className="w-1/3 pr-6">
-          <Steps progressDot current={current} direction="vertical" items={items} />
-        </div>
-        <div className="w-2/4 bg-white p-6 shadow-md rounded-lg">
-          <h2 className="text-2xl font-semibold text-gray-800">{courses[current].title}</h2>
-          <ul className="list-none text-gray-600 mt-4">
-            {courses[current].topics.map((topic, i) => (
-              <li key={i} className="flex items-center gap-2">
-                <ArrowRight size={16} /> {topic}
-              </li>
-            ))}
-          </ul>
-          <div className="mt-6 flex justify-start">
-            {current > 0 && (
-              <Button className="mr-2" onClick={prev}>
-                Previous
-              </Button>
-            )}
-            {current < courses.length - 1 ? (
-              <Button type="primary" onClick={next}>
-                Next
-              </Button>
-            ) : (
-              <Button type="primary" onClick={() => message.success('You have reviewed all courses!')}>
-                Done
-              </Button>
-            )}
-          </div>
-        </div>
+      </div>
+      <div className="bg-white p-6 shadow-md rounded-lg ">
+        <Collapse accordion items={items} />
       </div>
     </div>
   );

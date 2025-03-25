@@ -4,7 +4,7 @@ const About = () => {
   return (
     <div className="bg-gray-100 min-h-scree ">
       {/* Hero Section */}
-      <div className="relative top-0 md:h-[500px] h-[300px] p-4 flex items-center opacity- bg-[url('src/assets/image/about/about5.jpg')]  justify-center text-white bg-cover  md:bg-cover bg-[-20px_30px]  md:bg-[0px_-10px] lg:bg-[0px_-140px] bg-no-repeat">
+      <div className="relative top-0 md:h-[500px] h-[300px] p-4 flex items-center opacity- bg-[url('image/about/about5.jpg')]  justify-center text-white bg-cover  md:bg-cover bg-[-20px_30px]  md:bg-[0px_-10px] lg:bg-[0px_-140px] bg-no-repeat">
   
   {/* Background Overlay for better readability */}
   <div className="absolute inset-0"></div>
@@ -31,7 +31,7 @@ const About = () => {
             </Link>
           </div>
           <div>
-            <img src="src/assets/image/about/solar3.jpg" alt="Solar Panel" className="w-full rounded-lg shadow-xl" />
+            <img src="image/about/solar3.jpg" alt="Solar Panel" className="w-full rounded-lg shadow-xl" />
           </div>
         </div>
       </div>
@@ -45,7 +45,7 @@ const About = () => {
     <div className="grid md:grid-cols-3 gap-8 mt-8">
       <div className="p-6 bg-gray-100 rounded-lg text-center shadow-md">
         <img
-          src="src/assets/image/about/expert-led.jpg"
+          src="image/about/expert-led.jpg"
           alt="Expert Training"
           className="w-80 h-50 rounded mx-auto mb-4"
         />
@@ -56,7 +56,7 @@ const About = () => {
       </div>
       <div className="p-6 bg-gray-100 rounded-lg text-center shadow-md">
         <img
-          src="src/assets/image/about/learning.jpg"
+          src="image/about/learning.jpg"
           alt="Hands-On Learning"
           className="w-80 h-50 rounded mx-auto mb-4"
         />
@@ -67,7 +67,7 @@ const About = () => {
       </div>
       <div className="p-6 bg-gray-100 rounded-lg text-center shadow-md">
         <img
-          src="src/assets/image/about/future.jpg"
+          src="image/about/future.jpg"
           alt="Sustainable Future"
           className="rounded w-80 h-50 mx-auto mb-4"
         />
@@ -81,7 +81,7 @@ const About = () => {
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
       <div className="p-6 bg-gray-100 rounded-lg text-center shadow-md">
         <img
-          src="src/assets/image/about/fb-learn.jpg"
+          src="image/about/fb-learn.jpg"
           alt="Flexible Learning"
           className="w-80 h-50 rounded mx-auto mb-4"
         />
@@ -92,7 +92,7 @@ const About = () => {
       </div>
       <div className="p-6 bg-gray-100 rounded-lg text-center shadow-md">
         <img
-          src="src/assets/image/about/certificate.jpg"
+          src="image/about/certificate.jpg"
           alt="Certification"
           className="w-80 h-50 rounded mx-auto mb-4"
         />
@@ -103,7 +103,7 @@ const About = () => {
       </div>
       <div className="p-6 bg-gray-100 rounded-lg text-center shadow-md">
         <img
-          src="src/assets/image/about/networking.jpg"
+          src="image/about/networking.jpg"
           alt="Networking"
           className="w-80 h-50 rounded mx-auto mb-4"
         />
