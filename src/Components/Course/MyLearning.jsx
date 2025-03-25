@@ -45,11 +45,14 @@ const MyLearning = () => {
             },
           }
         );
+        if(!response.data.myCourses){
+          setError("no data found")
+        }
 
         setSubscribedCourses(response.data.myCourses || []);
       } catch (err) {
-        console.error("❌ API Error:", err);
-        setError(err.message);
+        console.error("❌ API Error:", err.response.data);
+        setError(err.response.data.message);
       } finally {
         setLoading(false);
       }
