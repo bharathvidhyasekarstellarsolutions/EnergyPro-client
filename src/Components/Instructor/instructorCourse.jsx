@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Modal, Form, Input, Button, Upload, message ,Flex,Spin} from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 export default function InstructorCourse() {
   const [courses, setCourses] = useState([]);
@@ -26,9 +26,12 @@ export default function InstructorCourse() {
   
       try {
         const response = await axios.get(
-          `http://localhost:3000/v1/api/courses/instructorCourse/${parsedUser.user.id}`,
+          `${SERVER_URL}/v1/api/courses/instructorCourse/${parsedUser.user.id}`,
           {
-            headers: { Authorization: `Bearer ${parsedUser.accessToken}` },
+            headers: {
+               Authorization: `Bearer ${parsedUser.accessToken}`,
+               "Ngrok-Skip-Browser-Warning": "true" 
+               },
           }
         );
         setCourses(Array.isArray(response.data.data) ? response.data.data : []);
@@ -77,12 +80,13 @@ export default function InstructorCourse() {
       // No new files? Send JSON update
       try {
         await axios.put(
-          `http://localhost:3000/v1/api/courses/instructorCourse/update/${editCourseData.courseId}`,
+          `${SERVER_URL}/v1/api/courses/instructorCourse/update/${editCourseData.courseId}`,
           values,
           {
             headers: {
               Authorization: `Bearer ${user.accessToken}`,
               "Content-Type": "application/json",
+              "Ngrok-Skip-Browser-Warning": "true" 
             },
           }
         );
@@ -114,12 +118,13 @@ export default function InstructorCourse() {
 
     try {
       await axios.put(
-        `http://localhost:3000/v1/api/courses/instructorCourse/update/${editCourseData.courseId}`,
+        `${SERVER_URL}/v1/api/courses/instructorCourse/update/${editCourseData.courseId}`,
         formData,
         {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
             "Content-Type": "multipart/form-data",
+            "Ngrok-Skip-Browser-Warning": "true" 
           },
         }
       );

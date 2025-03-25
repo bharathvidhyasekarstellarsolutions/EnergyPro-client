@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 const CourseCard = ({ course, user }) => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const CourseCard = ({ course, user }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3000/v1/api/subscription/get-course/${user.user.id}`,
+        `${SERVER_URL}/v1/api/subscription/get-course/${user.user.id}`,
         {
           method: "GET",
           headers: {
@@ -71,9 +72,10 @@ console.log("isSubscribed:", isSubscribed);
         crossOrigin="anonymous"
       />
       <div className="px-6 py-4">
-        <div className="overflow-hidden whitespace-nowrap">
+        <div className="overflow-hidden ">
           <div className="inline-block animate-marquee">
-            <span>Course :</span> {course.title.charAt(0).toUpperCase() + course.title.slice(1)}
+            <span>Course :
+              </span> <span className="text-sm"> {course.title.charAt(0).toUpperCase() + course.title.slice(1)} </span> 
           </div>
         </div>
         <p className="text-gray-700 text-base">

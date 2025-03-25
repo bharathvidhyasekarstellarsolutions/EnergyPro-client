@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 const MyLearning = () => {
   const navigate = useNavigate();
@@ -35,11 +36,12 @@ const MyLearning = () => {
     const fetchSubscribedCourses = async () => {
    try {
         const response = await axios.get(
-          `http://localhost:3000/v1/api/subscription/get-course/${userId}`,
+          `${SERVER_URL}/v1/api/subscription/get-course/${userId}`,
           {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
+              "Ngrok-Skip-Browser-Warning": "true" 
             },
           }
         );
@@ -68,7 +70,7 @@ const MyLearning = () => {
       ) : error ? (
         <p className="text-red-500">{error}</p>
       ) : subscribedCourses.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
           {subscribedCourses.map((course) => (
             <div
               key={course.courseId}
@@ -81,7 +83,7 @@ const MyLearning = () => {
                 crossOrigin="anonymous"
               />
               <div className="px-6 py-4">
-                <div className="overflow-hidden whitespace-nowrap">
+                <div className="overflow-hidden">
                   <div className="inline-block animate-marquee text-lg font-bold">
                     <span className="font-light">Course :</span> {capitalize(course.title)}
                   </div>

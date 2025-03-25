@@ -3,18 +3,18 @@ import React from "react";
 const Contact = () => {
   return (
     <>
-     <section class=" py-7 bg-gray-100 dark:bg-gray-900 lg:flex">
-    <div class="flex flex-col shadow-2xl justify-center w-full p-8 lg:bg-gray-200 lg:dark:bg-gray-800 lg:px-12 xl:px-32 lg:w-1/2">
-        <h1 class="text-2xl font-semibold text-gray-800 capitalize dark:text-white lg:text-3xl">Contact us.</h1>
+      <section class="py-7 bg-gray-100 lg:flex">
+        <div class="flex flex-col shadow-2xl justify-center w-full p-8 lg:bg-gray-200 lg:px-12 xl:px-32 lg:w-1/2">
+          <h1 class="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl">Contact us.</h1>
 
-        <p class="mt-4 text-gray-700 dark:text-gray-700">
-        Take the next step in your professional journey with EnergyProInstitute. Enroll in our courses and become a leader in sustainability, renewable energy, and business transformation.
-For inquiries and enrollment, visit our website or contact us at <span className="text-blue-600">hussein@energyproelec.com</span> / <span className="text-black"> +971502753820</span>.
-        </p>
+          <p class="mt-4 text-gray-700">
+            Take the next step in your professional journey with EnergyProInstitute. Enroll in our courses and become a leader in sustainability, renewable energy, and business transformation.
+            For inquiries and enrollment, visit our website or contact us at <span className="text-blue-600">hussein@energyproelec.com</span> / <span className="text-black">+971502753820</span>.
+          </p>
 
-        <div class="mt-6 md:mt-8 mx-auto">
-            <h3 class="font-medium text-gray-900 dark:text-gray-300 ">Follow us</h3>
-            <p className="text-gray-600 text-sm">Stay updated with our latest courses, insights, and industry trends by following us on </p>
+          <div class="mt-6 md:mt-8 mx-auto">
+            <h3 class="font-medium text-gray-900">Follow us</h3>
+            <p className="text-gray-600 text-sm">Stay updated with our latest courses, insights, and industry trends by following us on</p>
 
             <div class="flex mt-4 -mx-1.5 ">
                 
@@ -24,7 +24,7 @@ For inquiries and enrollment, visit our website or contact us at <span className
                     </svg>
                 </a>
 
-                <a class="mx-1.5 dark:hover:text-blue-400 text-gray-500 transition-colors duration-300 transform hover:text-blue-500" href="#">
+                <a class="mx-1.5 dark:hover:text-blue-400 text-gray-500 transition-colors duration-300 transform hover:text-blue-500" href="https://www.linkedin.com/in/hussein-salloum-b8851923/">
                     <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.2 8.80005C16.4731 8.80005 17.694 9.30576 18.5941 10.2059C19.4943 11.1061 20 12.327 20 13.6V19.2H16.8V13.6C16.8 13.1757 16.6315 12.7687 16.3314 12.4687C16.0313 12.1686 15.6244 12 15.2 12C14.7757 12 14.3687 12.1686 14.0687 12.4687C13.7686 12.7687 13.6 13.1757 13.6 13.6V19.2H10.4V13.6C10.4 12.327 10.9057 11.1061 11.8059 10.2059C12.7061 9.30576 13.927 8.80005 15.2 8.80005Z" fill="currentColor" />
                         <path d="M7.2 9.6001H4V19.2001H7.2V9.6001Z" fill="currentColor" />
@@ -47,37 +47,33 @@ For inquiries and enrollment, visit our website or contact us at <span className
         </div>
     </div>
 
-    <div class="flex flex-col justify-center w-full bg-white shadow-2xl p-8 lg:w-1/2 lg:px-12 xl:px-24 pt-5">
-        <form>
+        <div class="flex flex-col justify-center w-full bg-white shadow-2xl p-8 lg:w-1/2 lg:px-12 xl:px-24 pt-5">
+          <form>
             <div class="-mx-2 md:items-center md:flex">
-                <div class="flex-1 px-2">
-                    <label class="block mb-2 text-sm text-gray-700 dark:text-gray-200">Full Name</label>
-                    <input type="text" placeholder="John Doe" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-                </div>
+              <div class="flex-1 px-2">
+                <label class="block mb-2 text-sm text-gray-700">Full Name</label>
+                <input type="text" placeholder="Hussein" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+              </div>
 
-                <div class="flex-1 px-2 mt-4 md:mt-0">
-                    <label class="block mb-2 text-sm text-gray-700 dark:text-gray-200">Email address</label>
-                    <input type="email" placeholder="johndoe@example.com" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-                </div>
+              <div class="flex-1 px-2 mt-4 md:mt-0">
+                <label class="block mb-2 text-sm text-gray-700">Email address</label>
+                <input type="email" placeholder="hussein@energyproelec.com" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+              </div>
             </div>
 
             <div class="w-full mt-4">
-                <label class="block mb-2 text-sm text-gray-700 dark:text-gray-200">Message</label>
-                <textarea class="block w-full h-32 px-5 py-3 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-200 rounded-md md:h-56 dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Message"></textarea>
+              <label class="block mb-2 text-sm text-gray-700">Message</label>
+              <textarea class="block w-full h-32 px-5 py-3 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-200 rounded-md md:h-56 focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Message"></textarea>
             </div>
 
             <button class="w-full px-6 py-3 mt-4 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                get in touch
+              get in touch
             </button>
-        </form>
-    </div>
-</section>
+          </form>
+        </div>
+      </section>
     </>
   );
 };
 
 export default Contact;
-
-
-
-
