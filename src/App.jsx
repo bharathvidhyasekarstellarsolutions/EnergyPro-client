@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate} from "react-router-dom";
 import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -38,10 +38,9 @@ function App() {
       return null;
     }
   });
+  const navigate = useNavigate()
 
   const userRole = user?.user?.role;
-
-  const location = useLocation();
   const hideHeaderFooter = location.pathname.includes("/admin");
 
   // Redirect to home if userRole is null, but only after user is loaded
@@ -50,6 +49,38 @@ function App() {
       window.location.replace("/");
     }
   }, [user, userRole]);
+
+
+  const isTokenExpired = (token) => {
+    if (!token) return true; // No token = Expired
+  
+    try {
+      // Extract the payload from JWT
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const decodedPayload = JSON.parse(atob(base64));
+  
+      // Get expiration time (exp) and compare with current time
+      const expTime = decodedPayload.exp;
+      const currentTime = Math.floor(Date.now() / 1000);
+  
+      return expTime < currentTime; // true if expired, false if valid
+    } catch (error) {
+      console.error("Invalid Token", error);
+      return true; // Assume expired if error
+    }
+  };
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    const parsedUser = user ? JSON.parse(user) : null;
+    const token = parsedUser?.accessToken;
+
+    if (!token || isTokenExpired(token)) {
+      console.log("Token expired, logging out...");
+      localStorage.removeItem("token");
+      navigate("/signin"); // Redirect to login page
+    }
+  }, [navigate]); 
 
   return (
     <>
