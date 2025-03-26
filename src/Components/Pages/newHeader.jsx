@@ -122,7 +122,7 @@ const Navbar = ({ user, setUser }) => {
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                 >
                   <img
-                    src={avatar || "/src/assets/profile/profile.png"}
+                    src={avatar || "profile/profile.png"}
                     alt="Profile"
                     className="w-10 h-10 rounded-full border border-gray-300"
                   />

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 const MyLearning = () => {
   const navigate = useNavigate();
@@ -10,7 +11,6 @@ const MyLearning = () => {
   const [token, setToken] = useState("");
   const [userId, setUserId] = useState("");
 
-  // ✅ Load user data from localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
 
@@ -25,7 +25,9 @@ const MyLearning = () => {
     } else {
       console.error("No user found in localStorage");
     }
-  }, []);
+
+  }, []); // ✅ Runs only once when component mounts
+
 
 
   // ✅ Fetch subscribed courses once `userId` & `token` are set
@@ -33,28 +35,34 @@ const MyLearning = () => {
     if (!userId || !token) return; // 🛑 Wait until both are available
 
     const fetchSubscribedCourses = async () => {
-   try {
+      setLoading(true);
+      try {
         const response = await axios.get(
-          `http://localhost:3000/v1/api/subscription/get-course/${userId}`,
+          `${SERVER_URL}/v1/api/subscription/get-course/${userId}`,
           {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
+              "Ngrok-Skip-Browser-Warning": "true",
             },
           }
         );
 
-        setSubscribedCourses(response.data.myCourses || []);
+        if (!response.data.myCourses || response.data.myCourses.length === 0) {
+          setError("No courses found");
+        } else {
+          setSubscribedCourses(response.data.myCourses);
+        }
       } catch (err) {
-        console.error("❌ API Error:", err);
-        setError(err.message);
+        console.error("❌ API Error:", err.response?.data || err.message);
+        setError(err.response?.data?.message || "Failed to fetch courses");
       } finally {
         setLoading(false);
       }
     };
 
     fetchSubscribedCourses();
-  }, [userId, token]); // ✅ Now waits for both `userId` & `token`
+  }, [userId, token]); // ✅ Waits for both `userId` & `token`
 
   // 🔹 Capitalize Helper Function
   const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
@@ -68,7 +76,7 @@ const MyLearning = () => {
       ) : error ? (
         <p className="text-red-500">{error}</p>
       ) : subscribedCourses.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
           {subscribedCourses.map((course) => (
             <div
               key={course.courseId}
@@ -81,7 +89,7 @@ const MyLearning = () => {
                 crossOrigin="anonymous"
               />
               <div className="px-6 py-4">
-                <div className="overflow-hidden whitespace-nowrap">
+                <div className="overflow-hidden">
                   <div className="inline-block animate-marquee text-lg font-bold">
                     <span className="font-light">Course :</span> {capitalize(course.title)}
                   </div>

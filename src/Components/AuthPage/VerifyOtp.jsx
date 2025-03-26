@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Input, Button, Typography, Form, message } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 const { Title } = Typography;
 
@@ -60,11 +61,21 @@ const VerifyOtp = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:3000/v1/api/auth/verify-otp', {
-        email: state.email,
-        role: state.role,
-        otp: enteredOtp,
-      });
+      const response = await axios.post(`${SERVER_URL}/v1/api/auth/verify-otp`, 
+        {
+          email: state.email,
+          role: state.role,
+          otp: enteredOtp,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Ngrok-Skip-Browser-Warning": "true",
+          },
+        }
+      );
+      
+    
 
       if (response.status === 201) {
         message.success('OTP verified successfully!');

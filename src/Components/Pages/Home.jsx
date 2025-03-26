@@ -5,7 +5,7 @@ import book from "/src/assets/book.jpg";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Flex,Spin } from "antd";
-
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 const Home = ({ user }) => {
     const [courses, setCourses] = useState([]);
     const [category, setCategory] = useState("All");
@@ -15,10 +15,16 @@ const Home = ({ user }) => {
     useEffect(() => {
       const fetchCourses = async () => {
           try {
-              const response = await axios.get("http://localhost:3000/v1/api/courses/getCourses");              
+              const response = await axios.get(`${SERVER_URL}/v1/api/courses/getCourses`,{
+                headers: {
+                  "Content-Type": "application/json",
+                  "Ngrok-Skip-Browser-Warning": "true"  // ✅ Bypass Ngrok warning page
+                },
+              }
+                
+              );              
               // ✅ Ensure we extract `data` array
-              const courseArray = Array.isArray(response.data.data) ? response.data.data : [];
-  
+              const courseArray = Array.isArray(response.data.data) ? response.data.data : [];               
               // ✅ Format URLs correctly
   
               setCourses(courseArray);
@@ -45,13 +51,13 @@ const Home = ({ user }) => {
     return (
         <>
            
-<section className="bg-gray-100 py-10 flex flex-col items-center justify-center bg-[url('src/assets/image/home/home1.jpg')] bg-[auto_400px] bg-no-repeat lg:bg-right  bg-[center_top_50px]"      >
+<section className="bg-gray-100 py-16  flex flex-col items-center justify-center bg-[url('/image/home/home1.jpg')] bg-[auto_400px] bg-no-repeat lg:bg-right  ]"      >
         <div className="container mx-auto px-4 mt-[380px] lg:mt-0">
           <div className="flex flex-col lg:flex-row items-center">
             <div className="lg:w-1/2 text-center lg:text-left">
               <div className="space-y-6 text-center lg:text-left">
                 {/* <h5 className="text-black-800  font-mono font-semibold text-lg tracking-wide">Everyone Yearns to Learn</h5> */}
-                <h1 className="text-5xl font-extrabold leading-tight text-gray-900">
+                <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-gray-900">
                   Welcome to <span className="text-blue-500">EnergyProInstitute</span>
                 </h1>
                 <h2 className="text-2xl font-semibold text-gray-700">
@@ -86,9 +92,9 @@ const Home = ({ user }) => {
         </Spin>
       </Flex>}
             {/* ✅ Responsive Course Grid */}
-            <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                {filteredCourses.map((course) => (
-                    <CourseCard key={course.courseId} course={course} user={user} />
+            <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+                {filteredCourses.map((course,index) => (
+                    <CourseCard key={course.courseId} index={index} course={course} user={user} />
                 ))}
             </div>
         </div>

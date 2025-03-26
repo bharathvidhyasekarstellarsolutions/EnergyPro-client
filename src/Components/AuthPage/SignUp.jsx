@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Tabs, Input, Button, Form, message } from 'antd';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 const { TabPane } = Tabs;
 
@@ -19,7 +20,14 @@ const SignUp = ( ) => {
 
     try {
       console.log("Sending registration request:", user);
-      const response = await axios.post("http://localhost:3000/v1/api/auth/send-otp", user);
+      const response = await axios.post(`${SERVER_URL}/v1/api/auth/send-otp`, user,{
+        headers: {
+          "Content-Type": "application/json",
+          "Ngrok-Skip-Browser-Warning": "true"  // ✅ Bypass Ngrok warning page
+        },
+      }
+
+      );
 
       console.log("API Response:", response);
 

@@ -2,6 +2,9 @@ import React from "react";
 import { Link, useNavigate,Navigate } from "react-router-dom";
 import { Input, Button, Form, message } from "antd";
 import axios from "axios";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
+
 
 const SignIn = ({user, setUser }) => {
   const navigate = useNavigate();
@@ -15,7 +18,7 @@ const SignIn = ({user, setUser }) => {
   const handleLogin = async (values) => {
     try {
       const { email, password } = values;
-      const response = await axios.post("http://localhost:3000/v1/api/auth/login", {
+      const response = await axios.post(`${SERVER_URL}/v1/api/auth/login`, {
         email,
         password,
       });

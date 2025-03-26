@@ -5,6 +5,7 @@ const Contact = () => {
     <>
       <section class="py-7 bg-gray-100 lg:flex">
         <div class="flex flex-col shadow-2xl justify-center w-full p-8 lg:bg-gray-200 lg:px-12 xl:px-32 lg:w-1/2">
+
           <h1 class="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl">Join Us Today.</h1>
 
           <p class="mt-4 text-gray-700">
