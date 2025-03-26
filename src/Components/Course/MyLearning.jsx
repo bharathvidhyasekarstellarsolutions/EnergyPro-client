@@ -11,7 +11,6 @@ const MyLearning = () => {
   const [token, setToken] = useState("");
   const [userId, setUserId] = useState("");
 
-  // ✅ Load user data from localStorage only once on mount
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
 
@@ -26,7 +25,10 @@ const MyLearning = () => {
     } else {
       console.error("No user found in localStorage");
     }
+
   }, []); // ✅ Runs only once when component mounts
+
+
 
   // ✅ Fetch subscribed courses once `userId` & `token` are set
   useEffect(() => {
